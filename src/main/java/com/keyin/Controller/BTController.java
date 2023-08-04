@@ -1,5 +1,7 @@
 package com.keyin.Controller;
 import com.keyin.Entities.BinaryNode.BinaryNode;
+import com.keyin.Entities.PreviousTreeResponseDTO;
+import com.keyin.Entities.TreeResponseDTO;
 import com.keyin.Entities.UserInput.UserInput;
 
 import com.keyin.Service.BTService;
@@ -22,19 +24,23 @@ public class BTController {
     }
 
     @PostMapping("/process-numbers")
-    public ResponseEntity<Map<String, Object>> processNumbers(@RequestBody List<Integer> numbers) {
+    public ResponseEntity<TreeResponseDTO> processNumbers(@RequestBody List<Integer> numbers) {
         BinaryNode root = btService.constructBinarySearchTree(numbers);
 
         UserInput userInput = new UserInput();
         userInput.setInputs(numbers);
 
-        // Save user input and binary tree nodes to the database
         btService.saveUserInputAndBinaryTree(numbers);
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("tree", root);
-        return ResponseEntity.ok(response);
+        TreeResponseDTO responseDTO = new TreeResponseDTO();
+        responseDTO.setInputs(numbers);
+        responseDTO.setTree(root);
+        return ResponseEntity.ok(responseDTO);
     }
 
-    // Add other routes and methods as needed
+    @GetMapping("/previous")
+    public ResponseEntity<List<PreviousTreeResponseDTO>> getPreviousTrees() {
+        List<PreviousTreeResponseDTO> previousTrees = btService.getAllPreviousTrees();
+        return ResponseEntity.ok(previousTrees);
+    }
 }

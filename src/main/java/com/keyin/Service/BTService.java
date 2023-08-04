@@ -2,6 +2,7 @@ package com.keyin.Service;
 
 import com.keyin.Entities.BinaryNode.BinaryNode;
 import com.keyin.Entities.BinaryNode.RestRepository.BinaryRestRepository;
+import com.keyin.Entities.PreviousTreeResponseDTO;
 import com.keyin.Entities.UserInput.RestRepo.UserInputRestRepository;
 import com.keyin.Entities.UserInput.UserInput;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BTService {
@@ -61,4 +63,22 @@ public class BTService {
         userInputRepository.save(userInput);
         binaryNodeRepository.saveAll(getBinaryTreeNodes(root));
     }
+
+    public List<PreviousTreeResponseDTO> getAllPreviousTrees() {
+        List<UserInput> previousTrees = userInputRepository.findAll();
+
+        // Convert UserInput entities to DTO objects
+        return previousTrees.stream()
+                .map(userInput -> {
+                    PreviousTreeResponseDTO dto = new PreviousTreeResponseDTO();
+                    dto.setId(userInput.getId());
+                    dto.setInputs(userInput.getInputs());
+                    dto.setTree(userInput.getRootNode());
+                    System.err.println(dto.getTree());
+
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
 }
+
