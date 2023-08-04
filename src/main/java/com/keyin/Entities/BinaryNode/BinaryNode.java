@@ -3,22 +3,38 @@ package com.keyin.Entities.BinaryNode;
 import javax.persistence.*;
 
 
+
+import javax.persistence.*;
+
 @Entity
+@Table(name = "binary_node")
 public class BinaryNode {
-
-
     @Id
-    @SequenceGenerator(name = "binarynode_sequence", sequenceName = "binarynode_sequence", allocationSize = 1, initialValue=1)
-    @GeneratedValue(generator = "binarynode_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private int value;
 
     @ManyToOne
+    @JoinColumn(name = "left_child_id")
     private BinaryNode left;
 
     @ManyToOne
+    @JoinColumn(name = "right_child_id")
     private BinaryNode right;
-    private int height;
+
+    // Add any additional fields or methods as needed
+
+    public BinaryNode() {
+        // Default constructor required by JPA
+    }
+
+    public BinaryNode(int value) {
+        this.value = value;
+    }
+
+    // Getters and setters for id, value, left, and right nodes
+    // Add any additional methods as needed
 
     public Long getId() {
         return id;
@@ -51,12 +67,5 @@ public class BinaryNode {
     public void setRight(BinaryNode right) {
         this.right = right;
     }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
 }
+

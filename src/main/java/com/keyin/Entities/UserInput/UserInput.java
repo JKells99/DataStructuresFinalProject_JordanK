@@ -7,28 +7,25 @@ import java.util.List;
 
 
 @Entity
+@Table(name = "user_input")
 public class UserInput {
-
-
     @Id
-    @SequenceGenerator(name = "inputs_sequence", sequenceName = "inputs_sequence", allocationSize = 1, initialValue=1)
-    @GeneratedValue(generator = "inputs_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @ElementCollection
+    @CollectionTable(name = "user_input_numbers", joinColumns = @JoinColumn(name = "user_input_id"))
     private List<Integer> inputs;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private BinaryNode rootNode;
-    
-    public BinaryNode getRootNode() {
-        return rootNode;
+    // Add any additional fields or methods as needed
+
+    public UserInput() {
+        // Default constructor required by JPA
     }
 
-    public void setRootNode(BinaryNode rootNode) {
-        this.rootNode = rootNode;
-    }
+
+
+
 
     public Long getId() {
         return id;
@@ -44,13 +41,5 @@ public class UserInput {
 
     public void setInputs(List<Integer> inputs) {
         this.inputs = inputs;
-    }
-
-    @Override
-    public String toString() {
-        return "UserInput{" +
-                "id=" + id +
-                ", inputs=" + inputs +
-                '}';
     }
 }
