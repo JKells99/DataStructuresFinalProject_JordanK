@@ -1,5 +1,7 @@
 package com.keyin.Entities.BinaryNode;
 
+import com.keyin.Entities.UserInput.UserInput;
+
 import javax.persistence.*;
 
 
@@ -14,6 +16,8 @@ public class BinaryNode {
     private Long id;
 
     private int value;
+    @ManyToOne
+    private UserInput userInput;
 
     @ManyToOne
     @JoinColumn(name = "left_child_id")
@@ -26,15 +30,20 @@ public class BinaryNode {
     // Add any additional fields or methods as needed
 
     public BinaryNode() {
-        // Default constructor required by JPA
     }
 
     public BinaryNode(int value) {
         this.value = value;
     }
 
-    // Getters and setters for id, value, left, and right nodes
-    // Add any additional methods as needed
+
+    public UserInput getUserInput() {
+        return userInput;
+    }
+
+    public void setUserInput(UserInput userInput) {
+        this.userInput = userInput;
+    }
 
     public Long getId() {
         return id;
