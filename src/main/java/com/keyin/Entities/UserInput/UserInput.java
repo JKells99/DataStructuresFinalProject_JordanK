@@ -17,15 +17,21 @@ public class UserInput {
     @CollectionTable(name = "user_input_numbers", joinColumns = @JoinColumn(name = "user_input_id"))
     private List<Integer> inputs;
 
-    // Add any additional fields or methods as needed
+    @OneToOne(cascade = CascadeType.ALL) // Adjust the cascade type based on your use case
+    @JoinColumn(name = "root_node_id")
+    private BinaryNode rootNode;
 
     public UserInput() {
         // Default constructor required by JPA
     }
 
+    public BinaryNode getRootNode() {
+        return rootNode;
+    }
 
-
-
+    public void setRootNode(BinaryNode rootNode) {
+        this.rootNode = rootNode;
+    }
 
     public Long getId() {
         return id;
