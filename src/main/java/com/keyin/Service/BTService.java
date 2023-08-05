@@ -62,20 +62,19 @@ public class BTService {
         BinaryNode root = constructBinarySearchTree(numbers);
         UserInput userInput = new UserInput();
         userInput.setInputs(numbers);
-        userInput = userInputRepository.save(userInput); // Save the UserInput to get its ID
+        userInput = userInputRepository.save(userInput);
 
         List<BinaryNode> binaryTreeNodes = getBinaryTreeNodes(root);
         for (BinaryNode node : binaryTreeNodes) {
-            node.setUserInput(userInput); // Set the UserInput for each BinaryNode
+            node.setUserInput(userInput);
         }
 
-        binaryNodeRepository.saveAll(binaryTreeNodes); // Save the BinaryNode entities with the UserInput association
+        binaryNodeRepository.saveAll(binaryTreeNodes);
     }
 
     public List<PreviousTreeResponseDTO> getAllPreviousTrees() {
         List<UserInput> previousTrees = userInputRepository.findAll();
 
-        // Convert UserInput entities to DTO objects with tree structure
         return previousTrees.stream()
                 .map(userInput -> {
                     List<BinaryNode> binaryTreeNodes = binaryNodeRepository.findByUserInputId(userInput.getId());

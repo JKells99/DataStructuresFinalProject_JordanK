@@ -12,7 +12,8 @@ import javax.persistence.*;
 @Table(name = "binary_node")
 public class BinaryNode {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "node_sequence", sequenceName = "node_sequence", allocationSize = 1, initialValue=1)
+    @GeneratedValue(generator = "node_sequence")
     private Long id;
 
     private int value;
@@ -27,7 +28,6 @@ public class BinaryNode {
     @JoinColumn(name = "right_child_id")
     private BinaryNode right;
 
-    // Add any additional fields or methods as needed
 
     public BinaryNode() {
     }
