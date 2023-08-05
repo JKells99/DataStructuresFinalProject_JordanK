@@ -34,5 +34,12 @@ public class PreviousTreeResponseDTO {
         this.inputs = inputs;
     }
 
-
+    @Override
+    public String toString() {
+        return "PreviousTreeResponseDTO{" +
+                "id=" + id +
+                ", inputs=" + inputs +
+                ", tree=" + tree +
+                '}';
+    }
 }

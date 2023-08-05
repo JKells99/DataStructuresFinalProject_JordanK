@@ -36,6 +36,9 @@ public class BinaryNode {
         this.value = value;
     }
 
+    public BinaryNode(int i, BinaryNode node30, BinaryNode node70) {
+    }
+
 
     public UserInput getUserInput() {
         return userInput;
@@ -75,6 +78,17 @@ public class BinaryNode {
 
     public void setRight(BinaryNode right) {
         this.right = right;
+    }
+
+    @Override
+    public String toString() {
+        return "BinaryNode{" +
+                "id=" + id +
+                ", value=" + value +
+                ", userInput=" + userInput +
+                ", left=" + left +
+                ", right=" + right +
+                '}';
     }
 }
 
