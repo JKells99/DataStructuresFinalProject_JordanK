@@ -10,19 +10,18 @@ import java.util.List;
 @Table(name = "user_input")
 public class UserInput {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "input_sequence", sequenceName = "input_sequence", allocationSize = 1, initialValue=1)
+    @GeneratedValue(generator = "input_sequence")
     private Long id;
 
     @ElementCollection
     @CollectionTable(name = "user_input_numbers", joinColumns = @JoinColumn(name = "user_input_id"))
     private List<Integer> inputs;
 
-    @OneToOne(cascade = CascadeType.ALL) // Adjust the cascade type based on your use case
-    @JoinColumn(name = "root_node_id")
+    @OneToOne(cascade = CascadeType.ALL)
     private BinaryNode rootNode;
 
     public UserInput() {
-        // Default constructor required by JPA
     }
 
     public BinaryNode getRootNode() {
